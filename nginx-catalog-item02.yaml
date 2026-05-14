@@ -7,8 +7,8 @@ metadata:
     category: web
 spec:
   type: container
-  displayName: Nginx Web Server
-  shortDescription: Lightweight high-performance web server
+  displayName: Nginx Web Server GitOps
+  shortDescription: Lightweight high-performance web server GitOps
   artifacts:
     - type: container
       uri: docker.io/library/nginx # 公式のNginxイメージ
