@@ -1,0 +1,17 @@
+apiVersion: flightctl.io/v1beta1
+kind: Fleet
+metadata:
+  name: test03
+spec:
+  selector:
+    matchLabels:
+      region:  kyoto
+  template:
+    metadata:
+      labels:
+        fleet: test03 # test02からtest03に修正しました
+    spec:
+      applications: []
+      config: []
+      os:
+        image: quay.io/tmorisu/mlops-bootc-rhel10-nvidia:v1.1.1
