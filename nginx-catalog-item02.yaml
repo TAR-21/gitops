@@ -1,0 +1,20 @@
+apiVersion: flightctl.io/v1alpha1
+kind: CatalogItem
+metadata:
+  name: nginx-webserver02
+  catalog: infrastructure # 先ほど作成したCatalogの名前と一致させる必要があります
+  labels:
+    category: web
+spec:
+  type: container
+  displayName: Nginx Web Server
+  shortDescription: Lightweight high-performance web server
+  artifacts:
+    - type: container
+      uri: docker.io/library/nginx # 公式のNginxイメージ
+  versions:
+    - version: "1.27.0"
+      references:
+        container: "1.27.0-alpine" # 軽量なAlpine版を推奨
+      channels:
+        - stable
