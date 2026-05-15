@@ -9,15 +9,12 @@ spec:
   type: container
   displayName: Nginx Web Server GitOps
   shortDescription: Lightweight high-performance web server GitOps
-  # 1. artifactsで「何を使うか」を定義
   artifacts:
     - type: container
-      name: nginx-image  # このアーティファクトに名前を付ける
-      uri: docker.io/library/nginx:1.27.0-alpine
-  # 2. versionsで「どのアーティファクトのどのタグを使うか」を紐付け
+      uri: docker.io/library/nginx
   versions:
     - version: "1.27.0"
       references:
-        - name: nginx-image  # 上記のartifacts.nameと一致させる
+        container: "1.27.0-alpine" # ここをマップ形式（キー: 値）にします
       channels:
         - stable
