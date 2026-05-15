@@ -2,19 +2,22 @@ apiVersion: flightctl.io/v1alpha1
 kind: CatalogItem
 metadata:
   name: nginx-webserver02
-  catalog: infrastructure # 先ほど作成したCatalogの名前と一致させる必要があります
+  catalog: infrastructure
   labels:
     category: web
 spec:
   type: container
   displayName: Nginx Web Server GitOps
   shortDescription: Lightweight high-performance web server GitOps
+  # 1. artifactsで「何を使うか」を定義
   artifacts:
     - type: container
-      uri: docker.io/library/nginx # 公式のNginxイメージ
+      name: nginx-image  # このアーティファクトに名前を付ける
+      uri: docker.io/library/nginx:1.27.0-alpine
+  # 2. versionsで「どのアーティファクトのどのタグを使うか」を紐付け
   versions:
     - version: "1.27.0"
       references:
-        container: "1.27.0-alpine" # 軽量なAlpine版を推奨
+        - name: nginx-image  # 上記のartifacts.nameと一致させる
       channels:
         - stable
