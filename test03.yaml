@@ -14,4 +14,4 @@ spec:
       applications: []
       config: []
       os:
-        image: quay.io/tmorisu/mlops-bootc-rhel10-nvidia:v1.0.1
+        image: quay.io/tmorisu/simple-bootc-rhel10:v1.0.0
