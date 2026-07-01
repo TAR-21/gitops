@@ -1,20 +1,31 @@
 apiVersion: flightctl.io/v1alpha1
 kind: CatalogItem
 metadata:
-  name: nginx-webserver02
+  name: nginx-trustify-demo
   catalog: infrastructure
   labels:
-    category: web
+    category: security
+    demo: "true"
+    runtime: docker
+    os: debian
+
 spec:
   type: container
-  displayName: Nginx Web Server GitOps
-  shortDescription: Lightweight high-performance web server GitOps
+
+  displayName: NGINX 1.20.1 (Trustify Demo)
+
+  shortDescription: >
+    Vulnerable NGINX 1.20.1 container image for
+    SBOM generation and CVE detection demonstrations
+    using Trustify.
+
   artifacts:
     - type: container
       uri: docker.io/library/nginx
+
   versions:
-    - version: "1.27.0"
+    - version: "1.20.1"
       references:
-        container: "1.27.0-alpine" # ここをマップ形式（キー: 値）にします
+        container: "1.20.1"
       channels:
-        - stable
+        - demo
