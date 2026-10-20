@@ -1,36 +1,72 @@
 apiVersion: flightctl.io/v1alpha1
 kind: CatalogItem
 metadata:
-  name: ubi10-simple-quadlet
-  catalog: infrastructure
+  name: complex-quadlet-demo
+  catalog: infrastructure  # Takashiさんのカタログ名に合わせました
   labels:
-    category: demo
     demo: "true"
     runtime: podman
     os: rhel10
 
 spec:
-  # 1. 実行形式はユーザー指定通り "quadlet" を維持
-  # これにより、デバイス上では Podman Quadlet としてデプロイされます
+  # 実行形式は "quadlet" を維持
   type: quadlet
 
-  displayName: UBI 10 Simple Quadlet App
-
+  displayName: UBI 10 Complex Quadlet Demo
   shortDescription: >
-    A simple RHEL 10 / UBI 10 based Quadlet application 
-    for Red Hat Edge Manager fleet management 
-    demonstrations.
+    A feature-rich demo showing Network, Pod, and Volume 
+    interoperability within Quadlets, using UBI 10.
 
   artifacts:
-    - # 2. アーティファクトの「格納形式」としての指定
-      # Edge Managerのバリデーターは、OCIレジストリからの取得には "container" を期待します
+    - # 以前のステップでプッシュしたイメージをベースとして再利用
       type: container
       uri: quay.io/tmorisu/simple-quadret
 
   versions:
     - version: "1.0.0"
       references:
-        # 3. artifacts.type (container) で定義したキー名を使用してタグを指定
         container: "ubi10-v1"
       channels:
         - stable
+      # ここに Device YAML のアプリケーション設定（inline等）を移植します
+      defaults:
+        config:
+          envVars:
+            LOG_MESSAGE: "Catalog Demo"
+          
+          # Device YAML の inline セクションをここに配置
+          inline:
+            # 1. ネットワーク定義
+            - path: app.network
+              content: |
+                [Network]
+                Driver=bridge
+            
+            # 2. Pod定義 (ネットワークに参加)
+            - path: app.pod
+              content: |
+                [Pod]
+                Network=app.network
+            
+            # 3. コンテナ定義 (Podに参加し、ボリュームをマウント)
+            - path: app.container
+              content: |
+                [Unit]
+                Description=Complex Container
+              
+                [Container]
+                Image=registry.access.redhat.com/ubi10-minimal:latest
+                Pod=app.pod
+                # 以下の model-data ボリュームを参照
+                Volume=model-data:/mnt/model:ro
+                Exec=sh -c "echo 'App started.' && echo 'LOG_MESSAGE:' $LOG_MESSAGE && sleep infinity"
+
+                [Install]
+                WantedBy=default.target
+
+          # 4. ボリューム定義
+          volumes:
+            - name: model-data
+              image:
+                # 実際には存在するデータアーティファクトを指定してください
+                reference: quay.io/tmorisu/simple-quadret:ubi10-v1
