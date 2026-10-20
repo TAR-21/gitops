@@ -2,23 +2,29 @@ apiVersion: flightctl.io/v1alpha1
 kind: CatalogItem
 metadata:
   name: ubi10-simple-quadlet
-  catalog: infrastructure  # 作成済みの Catalog 名と一致
+  catalog: infrastructure
   labels:
     demo: "true"
     runtime: podman
     os: rhel10
 spec:
+  # 実行タイプは quadlet のまま
   type: quadlet
+  
   displayName: UBI 10 Simple Quadlet App
   shortDescription: >
     A declarative Quadlet deployment demo using UBI 10 
     for Edge Manager environment.
+
   artifacts:
-    - type: quadlet
+    - # ここを "container" に修正します
+      type: container
       uri: quay.io/tmorisu/simple-quadret
+
   versions:
     - version: "1.0.0"
       references:
-        quadlet: "ubi10-v1"
+        # artifactsで定義した種別 (container) に対応するタグを指定
+        container: "ubi10-v1"
       channels:
         - stable
