@@ -8,8 +8,8 @@ metadata:
     runtime: podman
     os: rhel10
 spec:
-  # 1. 実行形式の指定: device-quadlet-app.yaml の "type: quadlet" に相当
-  # これにより、デバイス側で Quadlet として展開されます
+  # 1. デバイス上でどう動かすか（実行形式）
+  # 以前のエラーはこの spec.type ではなく artifacts 側の設定が原因でした。
   type: quadlet
 
   displayName: UBI 10 Simple Quadlet App
@@ -18,14 +18,15 @@ spec:
     for Edge Manager environment.
 
   artifacts:
-    - # 2. 格納形式の指定: カタログのバリデーション上、OCIイメージは "container" と書きます
+    - # 2. どこから取得するか（格納形式）
+      # OCIレジストリ(Quay等)から取得する場合は必ず "container" です。
       type: container
       uri: quay.io/tmorisu/simple-quadret
 
   versions:
-    - version: "1.0.1"
+    - version: "1.0.0"
       references:
-        # 3. artifacts で定義した type (container) とキーを一致させます
+        # 3. artifacts.type (container) で定義したキーを使用してタグを指定
         container: "ubi10-v1"
       channels:
         - stable
