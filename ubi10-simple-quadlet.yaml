@@ -23,7 +23,7 @@ spec:
       uri: quay.io/tmorisu/simple-quadret
 
   versions:
-    - version: "1.0.0"
+    - version: "1.0.1"
       references:
         # 3. artifacts で定義した type (container) とキーを一致させます
         container: "ubi10-v1"
