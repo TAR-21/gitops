@@ -12,7 +12,7 @@ metadata:
 spec:
   type: container
 
-  displayName: NGINX 1.20.1 (Trustify Demo)
+  displayName: NGINX 1.20.2 (Trustify Demo)
 
   shortDescription: >
     Vulnerable NGINX 1.20.1 container image for
@@ -24,8 +24,8 @@ spec:
       uri: docker.io/library/nginx
 
   versions:
-    - version: "1.20.1"
+    - version: "1.20.2"
       references:
-        container: "1.20.1"
+        container: "1.20.2"
       channels:
         - demo
