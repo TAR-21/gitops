@@ -8,23 +8,24 @@ metadata:
     runtime: podman
     os: rhel10
 spec:
-  # 実行タイプは quadlet のまま
+  # 1. 実行形式の指定: device-quadlet-app.yaml の "type: quadlet" に相当
+  # これにより、デバイス側で Quadlet として展開されます
   type: quadlet
-  
+
   displayName: UBI 10 Simple Quadlet App
   shortDescription: >
     A declarative Quadlet deployment demo using UBI 10 
     for Edge Manager environment.
 
   artifacts:
-    - # ここを "container" に修正します
+    - # 2. 格納形式の指定: カタログのバリデーション上、OCIイメージは "container" と書きます
       type: container
       uri: quay.io/tmorisu/simple-quadret
 
   versions:
     - version: "1.0.0"
       references:
-        # artifactsで定義した種別 (container) に対応するタグを指定
+        # 3. artifacts で定義した type (container) とキーを一致させます
         container: "ubi10-v1"
       channels:
         - stable
