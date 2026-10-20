@@ -4,29 +4,33 @@ metadata:
   name: ubi10-simple-quadlet
   catalog: infrastructure
   labels:
+    category: demo
     demo: "true"
     runtime: podman
     os: rhel10
+
 spec:
-  # 1. デバイス上でどう動かすか（実行形式）
-  # 以前のエラーはこの spec.type ではなく artifacts 側の設定が原因でした。
+  # 1. 実行形式はユーザー指定通り "quadlet" を維持
+  # これにより、デバイス上では Podman Quadlet としてデプロイされます
   type: quadlet
 
   displayName: UBI 10 Simple Quadlet App
+
   shortDescription: >
-    A declarative Quadlet deployment demo using UBI 10 
-    for Edge Manager environment.
+    A simple RHEL 10 / UBI 10 based Quadlet application 
+    for Red Hat Edge Manager fleet management 
+    demonstrations.
 
   artifacts:
-    - # 2. どこから取得するか（格納形式）
-      # OCIレジストリ(Quay等)から取得する場合は必ず "container" です。
+    - # 2. アーティファクトの「格納形式」としての指定
+      # Edge Managerのバリデーターは、OCIレジストリからの取得には "container" を期待します
       type: container
       uri: quay.io/tmorisu/simple-quadret
 
   versions:
     - version: "1.0.0"
       references:
-        # 3. artifacts.type (container) で定義したキーを使用してタグを指定
+        # 3. artifacts.type (container) で定義したキー名を使用してタグを指定
         container: "ubi10-v1"
       channels:
         - stable
