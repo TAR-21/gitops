@@ -1,72 +1,21 @@
 apiVersion: flightctl.io/v1alpha1
 kind: CatalogItem
 metadata:
-  name: complex-quadlet-demo
-  catalog: infrastructure  # Takashiさんのカタログ名に合わせました
+  name: ubi9-simple-quadlet
   labels:
-    demo: "true"
-    runtime: podman
-    os: rhel10
-
+    category: system
+  catalog: infrastructure
 spec:
-  # 実行形式は "quadlet" を維持
-  type: quadlet
-
-  displayName: UBI 10 Complex Quadlet Demo
-  shortDescription: >
-    A feature-rich demo showing Network, Pod, and Volume 
-    interoperability within Quadlets, using UBI 10.
-
+  category: application
+  displayName: UBI9 Minimal
+  shortDescription: Universal Base Image 9 Minimal
+  type: container
   artifacts:
-    - # 以前のステップでプッシュしたイメージをベースとして再利用
-      type: container
-      uri: quay.io/tmorisu/simple-quadret
-
+  - type: container
+    uri: registry.access.redhat.com/ubi9/ubi-minimal
   versions:
-    - version: "1.0.0"
-      references:
-        container: "ubi10-v1"
-      channels:
-        - stable
-      # ここに Device YAML のアプリケーション設定（inline等）を移植します
-      defaults:
-        config:
-          envVars:
-            LOG_MESSAGE: "Catalog Demo"
-          
-          # Device YAML の inline セクションをここに配置
-          inline:
-            # 1. ネットワーク定義
-            - path: app.network
-              content: |
-                [Network]
-                Driver=bridge
-            
-            # 2. Pod定義 (ネットワークに参加)
-            - path: app.pod
-              content: |
-                [Pod]
-                Network=app.network
-            
-            # 3. コンテナ定義 (Podに参加し、ボリュームをマウント)
-            - path: app.container
-              content: |
-                [Unit]
-                Description=Complex Container
-              
-                [Container]
-                Image=registry.access.redhat.com/ubi10-minimal:latest
-                Pod=app.pod
-                # 以下の model-data ボリュームを参照
-                Volume=model-data:/mnt/model:ro
-                Exec=sh -c "echo 'App started.' && echo 'LOG_MESSAGE:' $LOG_MESSAGE && sleep infinity"
-
-                [Install]
-                WantedBy=default.target
-
-          # 4. ボリューム定義
-          volumes:
-            - name: model-data
-              image:
-                # 実際には存在するデータアーティファクトを指定してください
-                reference: quay.io/tmorisu/simple-quadret:ubi10-v1
+  - version: 9.4.0
+    channels:
+    - stable
+    references:
+      container: registry.access.redhat.com/ubi9/ubi-minimal:latest
