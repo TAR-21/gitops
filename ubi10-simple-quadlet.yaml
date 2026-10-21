@@ -1,18 +1,16 @@
 apiVersion: flightctl.io/v1alpha1
 kind: CatalogItem
 metadata:
-  name: test03
+  name: test02
   catalog: infrastructure
 spec:
   category: application
-  displayName: Simple Quadlet App
-  shortDescription: Simple Quadlet Container Application
-  type: container
+  type: quadlet
   artifacts:
   - type: container
     uri: quay.io/tmorisu/simple-quadret:ubi10-v1
   versions:
-  - version: 1.0.1
+  - version: 1.0.0
     channels:
     - stable
     references:
