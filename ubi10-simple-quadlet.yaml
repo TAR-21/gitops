@@ -2,8 +2,6 @@ apiVersion: flightctl.io/v1alpha1
 kind: CatalogItem
 metadata:
   name: test03
-  labels:
-    category: application
   catalog: infrastructure
 spec:
   category: application
