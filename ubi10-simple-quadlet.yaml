@@ -1,12 +1,17 @@
+apiVersion: flightctl.io/v1alpha1
+kind: CatalogItem
+metadata:
+  name: test03
+  catalog: infrastructure
 spec:
   artifacts:
   - type: container
-    uri: quay.io/tmorisu/simple-quadret   # タグを付けずリポジトリ名までにする
+    uri: quay.io/tmorisu/simple-quadret
   category: application
   type: quadlet
   versions:
   - channels:
     - stable
     references:
-      container: ubi10-v1                 # タグ名のみを指定する
+      container: ubi10-v1
     version: 1.0.1
