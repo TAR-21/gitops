@@ -12,7 +12,7 @@ spec:
   type: container
   artifacts:
   - type: container
-    uri: registry.access.redhat.com/ubi9/ubi-minimal
+    uri: registry.access.redhat.com/ubi9/ubi-minimal:latest
   versions:
   - version: 9.4.0
     channels:
