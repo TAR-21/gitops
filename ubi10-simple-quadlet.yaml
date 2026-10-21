@@ -1,21 +1,24 @@
 apiVersion: flightctl.io/v1alpha1
-kind: CatalogItem
-metadata:
-  name: ubi9-simple-quadlet
-  labels:
-    category: system
-  catalog: infrastructure
-spec:
-  category: application
-  displayName: UBI9 Minimal
-  shortDescription: Universal Base Image 9 Minimal
-  type: container
-  artifacts:
-  - type: container
-    uri: registry.access.redhat.com/ubi9/ubi-minimal:latest
-  versions:
-  - version: 9.4.0
-    channels:
-    - stable
-    references:
-      container: registry.access.redhat.com/ubi9/ubi-minimal:latest
+items:
+- apiVersion: flightctl.io/v1alpha1
+  kind: CatalogItem
+  metadata:
+    annotations: {}
+    catalog: infrastructure
+    creationTimestamp: "2026-10-21T09:01:38.288856Z"
+    labels: {}
+    name: test03
+  spec:
+    artifacts:
+    - type: container
+      uri: quay.io/tmorisu/simple-quadret
+    category: application
+    type: quadlet
+    versions:
+    - channels:
+      - stable
+      references:
+        container: ubi10-v1
+      version: 1.0.1
+kind: CatalogItemList
+metadata: {}
